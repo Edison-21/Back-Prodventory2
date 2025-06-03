@@ -30,9 +30,12 @@ public class ProductService {
             productToUpdate.setNombre_producto(entity.getNombre_producto());
             productToUpdate.setPrecio(entity.getPrecio());
             productToUpdate.setStock(entity.getStock());
+            productToUpdate.setCategoria(entity.getCategoria());   // <--- Añadido
+            productToUpdate.setMarca(entity.getMarca());           // <--- Añadido
+            productToUpdate.setUsuario(entity.getUsuario());       // <--- Añadido
             return productRepository.save(productToUpdate);
         }
-        return null; // O lanzar una excepción personalizada si se requiere
+        return null;
     }
 
     // Obtener un producto por ID
@@ -44,4 +47,9 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+    public List<ProductEntity> findByUsuario(Long usuarioId) {
+        return productRepository.findByUsuarioId(usuarioId);
+    }
+
 }

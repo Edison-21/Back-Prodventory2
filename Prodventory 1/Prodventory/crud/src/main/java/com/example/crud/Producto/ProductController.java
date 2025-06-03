@@ -7,13 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.crud.Producto.dto.ProductDTO;
+import com.example.crud.Producto.dto.ProductMapper;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/productos")
-@CrossOrigin(origins = "*")
 public class ProductController {
 
     @Autowired
@@ -72,10 +74,10 @@ public class ProductController {
 
     // Obtener un producto por ID
     @GetMapping("/{id}")
-    public ResponseEntity<ProductEntity> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<ProductDTO> findById(@PathVariable("id") Long id) {
         return productService.findById(id)
-                .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            .map(product -> new ResponseEntity<>(ProductMapper.toDTO(product), HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     // Eliminar un producto por ID con mensaje de confirmación
@@ -88,5 +90,17 @@ public class ProductController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<ProductDTO>> findByUsuario(@PathVariable Long usuarioId) {
+        List<ProductEntity> productos = productService.findByUsuario(usuarioId);
+        List<ProductDTO> dtoList = productos.stream()
+            .map(ProductMapper::toDTO)
+            .toList(); // o .collect(Collectors.toList()) si usas Java <17
+
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }
+
+
 }
 

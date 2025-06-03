@@ -46,4 +46,9 @@ public class CategoriaService {
     public void deleteCategoria(Long id) {
         categoriaRepository.deleteById(id);
     }
+
+    public List<CategoriaEntity> findByUsuarioId(Long usuarioId) {
+    return categoriaRepository.findByUsuario_Id(usuarioId);
+}
+
 }

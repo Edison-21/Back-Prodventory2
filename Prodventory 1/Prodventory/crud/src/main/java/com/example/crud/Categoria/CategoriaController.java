@@ -15,7 +15,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/categorias")
-@CrossOrigin(origins = "*")
 public class CategoriaController {
 
     @Autowired
@@ -86,4 +85,11 @@ public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<CategoriaEntity>> findByUsuarioId(@PathVariable("id") Long id) {
+        List<CategoriaEntity> categorias = categoriaService.findByUsuarioId(id);
+        return new ResponseEntity<>(categorias, HttpStatus.OK);
+    }
+
 }

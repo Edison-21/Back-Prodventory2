@@ -13,7 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany; // Relación uno a muchos
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -29,7 +28,6 @@ public class CategoriaEntity {
 
     @NotEmpty(message = "El nombre de la categoría no puede estar vacío")
     @Size(max = 20, message = "El nombre de la categoría no puede tener más de 20 caracteres")
-    @Pattern(regexp = "^[^0-9]*$", message = "El nombre de la categoría no puede contener números")
     private String nombre_categoria;
 
     // Relación con los productos

@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("http://10.0.2.2:*")  // para permitir cualquier puerto en esa IP
+                        .allowedOriginPatterns("*")  // para permitir cualquier puerto en esa IP
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
